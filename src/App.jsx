@@ -10,7 +10,8 @@ function App() {
   const { weatherData, forecastData, loading, error, fetchByCity, fetchByLocation } = useWeather();
   const [unit, setUnit] = useState('C');
   const [currentView, setCurrentView] = useState('landing'); // 'landing' or 'app'
-  const [bgImage, setBgImage] = useState('/bg.png');
+  const baseUrl = import.meta.env.BASE_URL;
+  const [bgImage, setBgImage] = useState(`${baseUrl}bg.png`);
   const [bgClass, setBgClass] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
 
@@ -36,7 +37,7 @@ function App() {
   // Update background dynamically based on weather
   useEffect(() => {
     if (currentView === 'landing') {
-      setBgImage('/bg.png'); // Default aesthetic for landing page
+      setBgImage(`${baseUrl}bg.png`); // Default aesthetic for landing page
       return;
     }
 
@@ -44,14 +45,14 @@ function App() {
       const condition = weatherData.weather[0].main.toLowerCase();
       console.log('Current weather condition:', condition);
       
-      if (condition.includes('clear')) setBgImage('/bg_sunny.png');
-      else if (condition.includes('cloud')) setBgImage('/bg_cloudy.png'); // User's gorgeous uploaded image!
-      else if (condition.includes('rain') || condition.includes('drizzle')) setBgImage('/bg_rainy.png');
-      else if (condition.includes('snow')) setBgImage('/bg_snowy.png');
-      else if (condition.includes('thunder')) setBgImage('/bg_rainy.png');
-      else setBgImage('/bg.png');
+      if (condition.includes('clear')) setBgImage(`${baseUrl}bg_sunny.png`);
+      else if (condition.includes('cloud')) setBgImage(`${baseUrl}bg_cloudy.png`); // User's gorgeous uploaded image!
+      else if (condition.includes('rain') || condition.includes('drizzle')) setBgImage(`${baseUrl}bg_rainy.png`);
+      else if (condition.includes('snow')) setBgImage(`${baseUrl}bg_snowy.png`);
+      else if (condition.includes('thunder')) setBgImage(`${baseUrl}bg_rainy.png`);
+      else setBgImage(`${baseUrl}bg.png`);
     }
-  }, [weatherData, currentView]);
+  }, [baseUrl, weatherData, currentView]);
 
   return (
     <div 

@@ -3,7 +3,7 @@ export const Navbar = ({ onNavHome }) => {
     <nav className="navbar glass-panel">
       <div className="nav-logo" onClick={onNavHome} style={{ cursor: 'pointer' }}>
         <img 
-          src="/favicon.png" 
+          src={`${import.meta.env.BASE_URL}favicon.png`} 
           alt="Peacock feather" 
           style={{ width: '32px', height: '32px' }}
         />
