@@ -44,6 +44,8 @@ export const useWeather = () => {
 
   const fetchByCity = (city) => fetchWeather('city', city);
 
+  const fetchByCoords = (lat, lon) => fetchWeather('coords', { lat, lon });
+
   const fetchCitySuggestions = useCallback(async (query) => {
     if (!query || query.trim().length < 2) {
       return [];
@@ -92,6 +94,7 @@ export const useWeather = () => {
     loading,
     error,
     fetchByCity,
+    fetchByCoords,
     fetchCitySuggestions,
     fetchByLocation
   };

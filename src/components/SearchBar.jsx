@@ -11,6 +11,20 @@ export const SearchBar = ({ onSearch, onLocation, fetchSuggestions }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const requestIdRef = useRef(0);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    // close when clicking outside
+    const onDocClick = (e) => {
+      if (!containerRef.current) return;
+      if (!containerRef.current.contains(e.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', onDocClick);
+    return () => document.removeEventListener('mousedown', onDocClick);
+  }, []);
 
   useEffect(() => {
     if (typeof fetchSuggestions !== 'function') {
@@ -44,14 +58,14 @@ export const SearchBar = ({ onSearch, onLocation, fetchSuggestions }) => {
     return () => window.clearTimeout(debounceId);
   }, [fetchSuggestions, query]);
 
-  const selectedSuggestionLabel = useMemo(() => {
-    return suggestions.length > 0 ? formatSuggestion(suggestions[0]) : '';
-  }, [suggestions]);
+  // note: we intentionally do not auto-select the top suggestion on Enter
+  // to avoid accidental picks when typing quickly. Submitting uses raw input.
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim()) {
-      onSearch(selectedSuggestionLabel || query.trim());
+    const trimmed = query.trim();
+    if (trimmed) {
+      onSearch(trimmed);
       setQuery('');
       setSuggestions([]);
       setIsOpen(false);
@@ -63,11 +77,12 @@ export const SearchBar = ({ onSearch, onLocation, fetchSuggestions }) => {
     setQuery(label);
     setSuggestions([]);
     setIsOpen(false);
-    onSearch(label);
+    // pass the raw suggestion object to the caller so we can use lat/lon
+    onSearch(suggestion);
   };
 
   return (
-    <div className="search-container">
+    <div className="search-container" ref={containerRef}>
       <form className="search-input-wrapper" onSubmit={handleSubmit}>
         <div className="search-field">
           <Search className="search-icon" size={20} />
@@ -80,6 +95,11 @@ export const SearchBar = ({ onSearch, onLocation, fetchSuggestions }) => {
             onFocus={() => {
               if (suggestions.length > 0) {
                 setIsOpen(true);
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                setIsOpen(false);
               }
             }}
           />

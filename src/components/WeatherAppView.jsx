@@ -13,6 +13,7 @@ export const WeatherAppView = ({
   unit, 
   setUnit, 
   fetchByCity, 
+  fetchByCoords,
   fetchCitySuggestions,
   fetchByLocation,
   hasSearched
@@ -27,11 +28,22 @@ export const WeatherAppView = ({
     }
   }, [fetchByLocation, hasSearched]);
 
+  // Accept either a string (city query) or a suggestion object with lat/lon
+  const handleSearch = (value) => {
+    if (!value) return;
+
+    if (typeof value === 'string') {
+      fetchByCity(value);
+    } else if (value.lat && value.lon) {
+      fetchByCoords(value.lat, value.lon);
+    }
+  };
+
   return (
     <div className="weather-app-view">
       <header className="header">
         <SearchBar 
-          onSearch={fetchByCity} 
+          onSearch={handleSearch} 
           onLocation={fetchByLocation} 
           fetchSuggestions={fetchCitySuggestions}
         />
