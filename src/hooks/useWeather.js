@@ -43,6 +43,27 @@ export const useWeather = () => {
   }, []);
 
   const fetchByCity = (city) => fetchWeather('city', city);
+
+  const fetchCitySuggestions = useCallback(async (query) => {
+    if (!query || query.trim().length < 2) {
+      return [];
+    }
+
+    try {
+      const response = await axios.get('https://api.openweathermap.org/geo/1.0/direct', {
+        params: {
+          q: query.trim(),
+          limit: 5,
+          appid: API_KEY
+        }
+      });
+
+      return response.data || [];
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
+  }, []);
   
   const fetchByLocation = () => {
     if (!navigator.geolocation) {
@@ -71,6 +92,7 @@ export const useWeather = () => {
     loading,
     error,
     fetchByCity,
+    fetchCitySuggestions,
     fetchByLocation
   };
 };

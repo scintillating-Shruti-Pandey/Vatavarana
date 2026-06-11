@@ -29,7 +29,11 @@ export const WeatherAppView = ({
   return (
     <div className="weather-app-view">
       <header className="header">
-        <SearchBar onSearch={fetchByCity} onLocation={fetchByLocation} />
+        <SearchBar 
+          onSearch={fetchByCity} 
+          onLocation={fetchByLocation} 
+          fetchSuggestions={fetchCitySuggestions}
+        />
         <UnitToggle unit={unit} setUnit={setUnit} />
       </header>
 
