@@ -138,6 +138,20 @@ html {
 	color: var(--text-primary);
 }
 
+/* Make footer link look like surrounding text but underlined */
+.footer .creator a {
+	color: inherit;
+	text-decoration: underline;
+	text-decoration-color: currentColor;
+	text-underline-offset: 2px;
+	font-weight: inherit;
+}
+.footer .creator a:hover,
+.footer .creator a:active {
+	color: inherit;
+	opacity: 0.9;
+}
+
 /* Landing Page */
 .landing-page {
 	display: flex;
