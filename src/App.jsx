@@ -7,7 +7,7 @@ import { WeatherAppView } from './components/WeatherAppView';
 import './index.css';
 
 function App() {
-  const { weatherData, forecastData, loading, error, fetchByCity, fetchByLocation } = useWeather();
+  const { weatherData, forecastData, loading, error, fetchByCity, fetchCitySuggestions, fetchByLocation } = useWeather();
   const [unit, setUnit] = useState('C');
   const [currentView, setCurrentView] = useState('landing'); // 'landing' or 'app'
   const baseUrl = import.meta.env.BASE_URL;
@@ -73,6 +73,7 @@ function App() {
             unit={unit}
             setUnit={setUnit}
             fetchByCity={handleCitySearch}
+            fetchCitySuggestions={fetchCitySuggestions}
             fetchByLocation={handleLocationSearch}
             hasSearched={hasSearched}
           />
