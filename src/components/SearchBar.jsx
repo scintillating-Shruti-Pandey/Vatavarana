@@ -13,6 +13,12 @@ export const SearchBar = ({ onSearch, onLocation, fetchSuggestions }) => {
   const requestIdRef = useRef(0);
 
   useEffect(() => {
+    if (typeof fetchSuggestions !== 'function') {
+      setSuggestions([]);
+      setIsOpen(false);
+      return undefined;
+    }
+
     const trimmedQuery = query.trim();
 
     if (trimmedQuery.length < 2) {

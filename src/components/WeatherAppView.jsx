@@ -13,6 +13,7 @@ export const WeatherAppView = ({
   unit, 
   setUnit, 
   fetchByCity, 
+  fetchCitySuggestions,
   fetchByLocation,
   hasSearched
 }) => {
