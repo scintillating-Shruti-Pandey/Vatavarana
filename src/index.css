@@ -180,20 +180,23 @@ body, html {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 40px;
-  font-size: 1.2rem;
-  font-weight: 600;
+  padding: 18px 48px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
   color: #fff;
-  background: linear-gradient(135deg, #a67cff, #6d83f2);
-  border: none;
-  border-radius: 100px;
+  background: linear-gradient(135deg, #d4985f, #c87a5c);
+  border: 2px solid #e8b89d;
+  border-radius: 60px;
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(109, 131, 242, 0.4);
-  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(212, 152, 95, 0.25);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .explore-btn:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(109, 131, 242, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(200, 122, 92, 0.3);
+  background: linear-gradient(135deg, #e0a876, #d48a6f);
+  border-color: #f0c4a8;
 }
 
 .features-section {
